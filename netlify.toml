@@ -1,0 +1,28 @@
+# Tezos Chat – Netlify (GitHub → Netlify)
+# Repo holds extension + backend. Netlify serves the API and optional landing.
+
+[build]
+  command = "npm run build:netlify"
+  publish = "dist/public"
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Rewrite /api/messages and /api/creator to serverless functions
+[[redirects]]
+  from = "/api/messages"
+  to = "/.netlify/functions/messages"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/api/messages/*"
+  to = "/.netlify/functions/messages/:splat"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/api/creator"
+  to = "/.netlify/functions/creator"
+  status = 200
+  force = true
+

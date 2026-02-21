@@ -9,18 +9,30 @@ export default function Home() {
   const [pageUrl, setPageUrl] = useState<string>("");
 
   useEffect(() => {
-    // Determine the page URL context
-    // 1. Try to get it from query params (when embedded)
     const searchParams = new URLSearchParams(window.location.search);
     const urlParam = searchParams.get("pageUrl");
-    
+
     if (urlParam) {
       setPageUrl(urlParam);
-    } else {
-      // 2. Default fallback for standalone dev mode
-      // In production extension, this param will always be injected
-      setPageUrl("https://objkt.com/general-chat");
+      return;
     }
+
+    // Extension context: get current tab URL
+    const chromeTabs =
+      typeof chrome !== "undefined" && chrome?.tabs ? chrome.tabs : null;
+    if (chromeTabs) {
+      chromeTabs.query({ active: true, currentWindow: true }, (tabs) => {
+        const tabUrl = tabs[0]?.url;
+        if (tabUrl) {
+          setPageUrl(tabUrl);
+        } else {
+          setPageUrl("https://objkt.com/general-chat");
+        }
+      });
+      return;
+    }
+
+    setPageUrl("https://objkt.com/general-chat");
   }, [location]);
 
   if (!pageUrl) return null;

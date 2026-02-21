@@ -2,13 +2,19 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+import { nodePolyfills } from "vite-plugin-node-polyfills";
+
+const isExtensionBuild = process.env.BUILD_EXTENSION === "1";
 
 export default defineConfig({
+  base: isExtensionBuild ? "./" : "/",
   plugins: [
+    nodePolyfills(),
     react(),
-    runtimeErrorOverlay(),
+    ...(isExtensionBuild ? [] : [runtimeErrorOverlay()]),
     ...(process.env.NODE_ENV !== "production" &&
-    process.env.REPL_ID !== undefined
+    process.env.REPL_ID !== undefined &&
+    !isExtensionBuild
       ? [
           await import("@replit/vite-plugin-cartographer").then((m) =>
             m.cartographer(),
@@ -28,8 +34,13 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname, "client"),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: isExtensionBuild
+      ? path.resolve(import.meta.dirname, "extension", "dist")
+      : path.resolve(import.meta.dirname, "dist", "public"),
     emptyOutDir: true,
+    rollupOptions: isExtensionBuild
+      ? { input: path.resolve(import.meta.dirname, "client", "index.html") }
+      : undefined,
   },
   server: {
     fs: {

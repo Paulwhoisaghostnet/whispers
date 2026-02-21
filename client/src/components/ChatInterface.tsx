@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import { useMessages, useCreateMessage } from "@/hooks/use-messages";
+import { useMessages, useCreateMessage, useDeleteMessage } from "@/hooks/use-messages";
+import { useCreator } from "@/hooks/use-creator";
 import { useTezos } from "@/hooks/use-tezos";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Send, Hash, ExternalLink, MessageSquareOff } from "lucide-react";
+import { Send, Hash, ExternalLink, MessageSquareOff, Trash2, Shield } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
 import { motion, AnimatePresence } from "framer-motion";
 import { WalletButton } from "./WalletButton";
@@ -17,9 +18,16 @@ interface ChatInterfaceProps {
 export function ChatInterface({ pageUrl }: ChatInterfaceProps) {
   const { address } = useTezos();
   const { data: messages, isLoading } = useMessages(pageUrl);
+  const { data: creatorData } = useCreator(pageUrl);
   const { mutate: sendMessage, isPending } = useCreateMessage();
+  const { mutate: deleteMessage, isPending: isDeleting } = useDeleteMessage(pageUrl);
   const [inputValue, setInputValue] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const isAdmin =
+    !!address &&
+    !!creatorData?.creatorAddress &&
+    address.toLowerCase() === creatorData.creatorAddress.toLowerCase();
 
   // Auto-scroll to bottom on new messages
   useEffect(() => {
@@ -67,7 +75,14 @@ export function ChatInterface({ pageUrl }: ChatInterfaceProps) {
               <Hash className="w-4 h-4 text-primary" />
             </div>
             <div>
-              <h2 className="font-display font-bold text-sm tracking-tight text-white">Objkt Chat</h2>
+              <div className="flex items-center gap-2">
+                <h2 className="font-display font-bold text-sm tracking-tight text-white">Objkt Chat</h2>
+                {isAdmin && (
+                  <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/20 text-primary border border-primary/30">
+                    <Shield className="w-3 h-3" /> Creator
+                  </span>
+                )}
+              </div>
               <p className="text-xs text-muted-foreground truncate max-w-[150px]" title={pageUrl}>
                 {new URL(pageUrl).pathname === "/" ? "Home" : new URL(pageUrl).pathname}
               </p>
@@ -128,6 +143,20 @@ export function ChatInterface({ pageUrl }: ChatInterfaceProps) {
                         <span className="text-[10px] text-muted-foreground/60">
                           {formatDistanceToNow(new Date(msg.createdAt), { addSuffix: true })}
                         </span>
+                        {isAdmin && (
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6 text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                            onClick={() =>
+                              address && deleteMessage({ id: msg.id, walletAddress: address })
+                            }
+                            disabled={isDeleting}
+                            title="Delete message (creator only)"
+                          >
+                            <Trash2 className="w-3 h-3" />
+                          </Button>
+                        )}
                       </div>
                       
                       <div

@@ -14,22 +14,44 @@ export const errorSchemas = {
 export const api = {
   messages: {
     list: {
-      method: 'GET' as const,
-      path: '/api/messages' as const,
-      input: z.object({
-        pageUrl: z.string(),
-      }).optional(),
+      method: "GET" as const,
+      path: "/api/messages" as const,
+      input: z
+        .object({
+          pageUrl: z.string(),
+        })
+        .optional(),
       responses: {
         200: z.array(z.custom<typeof messages.$inferSelect>()),
       },
     },
     create: {
-      method: 'POST' as const,
-      path: '/api/messages' as const,
+      method: "POST" as const,
+      path: "/api/messages" as const,
       input: insertMessageSchema,
       responses: {
         201: z.custom<typeof messages.$inferSelect>(),
         400: errorSchemas.validation,
+      },
+    },
+    delete: {
+      method: "DELETE" as const,
+      path: "/api/messages/:id" as const,
+      pathPattern: /^\/api\/messages\/(\d+)$/,
+      responses: {
+        204: z.undefined(),
+        403: errorSchemas.internal,
+        404: errorSchemas.internal,
+      },
+    },
+  },
+  creator: {
+    get: {
+      method: "GET" as const,
+      path: "/api/creator" as const,
+      input: z.object({ pageUrl: z.string() }).optional(),
+      responses: {
+        200: z.object({ creatorAddress: z.string().nullable() }),
       },
     },
   },
@@ -50,3 +72,4 @@ export function buildUrl(path: string, params?: Record<string, string | number>)
 export type MessageInput = z.infer<typeof api.messages.create.input>;
 export type MessageResponse = z.infer<typeof api.messages.create.responses[201]>;
 export type MessagesListResponse = z.infer<typeof api.messages.list.responses[200]>;
+export type CreatorResponse = z.infer<typeof api.creator.get.responses[200]>;

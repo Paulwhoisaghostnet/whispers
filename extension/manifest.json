@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Tezos Chat",
+  "version": "1.0.0",
+  "description": "Objkt Chat – Tezos wallet chat for objkt.com",
+  "permissions": ["activeTab", "storage"],
+  "host_permissions": [
+    "https://*.objkt.com/*",
+    "https://objkt.com/*",
+    "https://mainnet.api.tez.ie/*",
+    "https://api.dicebear.com/*",
+    "https://fonts.googleapis.com/*",
+    "https://fonts.gstatic.com/*",
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Objkt Chat"
+  }
+}
