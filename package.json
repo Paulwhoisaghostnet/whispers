@@ -7,7 +7,8 @@
     "dev": "NODE_ENV=development tsx server/index.ts",
     "build": "tsx script/build.ts",
     "build:extension": "tsx script/build-extension.ts",
-    "build:netlify": "vite build",
+    "build:netlify": "vite build && npm run build:extension && npm run zip:extension",
+    "zip:extension": "tsx script/zip-extension.ts",
     "start": "NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
     "db:push": "drizzle-kit push"
@@ -104,6 +105,7 @@
     "@types/react-dom": "^18.3.1",
     "@types/ws": "^8.5.13",
     "@vitejs/plugin-react": "^4.7.0",
+    "archiver": "^7.0.1",
     "autoprefixer": "^10.4.20",
     "dotenv": "^16.4.5",
     "drizzle-kit": "^0.31.8",
