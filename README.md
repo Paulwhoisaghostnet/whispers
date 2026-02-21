@@ -8,6 +8,8 @@ Chat for [objkt.com](https://objkt.com) token and collection pages. Anyone can v
 
 **Repo**: [github.com/Paulwhoisaghostnet/whispers](https://github.com/Paulwhoisaghostnet/whispers)
 
+**CI**: To enable GitHub Actions (build on push/PR), add the workflow file from `.github/workflows/ci.yml` in this repo (e.g. via GitHub UI or a push with a token that has `workflow` scope).
+
 ## Quick start
 
 1. **Database**  
