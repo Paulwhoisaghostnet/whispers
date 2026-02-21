@@ -76,7 +76,7 @@ export function ChatInterface({ pageUrl }: ChatInterfaceProps) {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-display font-bold text-sm tracking-tight text-white">Objkt Chat</h2>
+                <h2 className="font-display font-bold text-sm tracking-tight text-white">Whispers</h2>
                 {isAdmin && (
                   <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-primary/20 text-primary border border-primary/30">
                     <Shield className="w-3 h-3" /> Creator

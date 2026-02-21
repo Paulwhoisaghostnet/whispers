@@ -1,4 +1,4 @@
-# Tezos Chat (Objkt Chat)
+# Whispers
 
 Chat for [objkt.com](https://objkt.com) token and collection pages. Anyone can view and post; the **token/collection creator** has admin privileges (delete messages) for that page’s chat.
 
@@ -10,7 +10,7 @@ Chat for [objkt.com](https://objkt.com) token and collection pages. Anyone can v
 
 ## Installation
 
-On [objkt.com](https://objkt.com) you’ll see an **Install Tezos Chat** button (bottom-right). Click it to open this repo; then:
+On [objkt.com](https://objkt.com) you’ll see an **Install Whispers** button (bottom-right). Click it to open this repo; then:
 
 1. **Option A – Load unpacked (dev)**  
    Clone the repo, run `npm run build:extension` (see [Quick start](#quick-start)), then in Chrome go to `chrome://extensions`, enable **Developer mode**, and click **Load unpacked** → select the `extension/dist` folder.

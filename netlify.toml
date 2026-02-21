@@ -1,4 +1,4 @@
-# Tezos Chat – Netlify (GitHub → Netlify)
+# Whispers – Netlify (GitHub → Netlify)
 # Repo holds extension + backend. Netlify serves the API and optional landing.
 
 [build]

@@ -1,4 +1,4 @@
-# Tezos Chat – Chrome Extension
+# Whispers – Chrome Extension
 
 Load the built extension in Chrome:
 

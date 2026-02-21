@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Tezos Chat",
+  "name": "Whispers",
   "version": "1.0.0",
-  "description": "Objkt Chat – Tezos wallet chat for objkt.com",
+  "description": "Whispers – Tezos wallet chat for objkt.com",
   "permissions": ["activeTab", "storage"],
   "host_permissions": [
     "https://*.objkt.com/*",
@@ -15,7 +15,7 @@
   ],
   "action": {
     "default_popup": "index.html",
-    "default_title": "Objkt Chat"
+    "default_title": "Whispers"
   },
   "content_scripts": [
     {

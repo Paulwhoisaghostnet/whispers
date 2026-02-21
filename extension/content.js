@@ -1,5 +1,5 @@
 /**
- * Content script: injects "Install Tezos Chat" button on objkt.com pages.
+ * Content script: injects "Install Whispers" button on objkt.com pages.
  * Click opens the install page (Chrome Web Store or repo instructions).
  */
 (function () {
@@ -18,7 +18,7 @@
   btn.href = INSTALL_URL;
   btn.target = '_blank';
   btn.rel = 'noopener noreferrer';
-  btn.textContent = 'Install Tezos Chat';
+  btn.textContent = 'Install Whispers';
   btn.setAttribute('role', 'button');
 
   Object.assign(btn.style, {

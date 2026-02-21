@@ -6,7 +6,7 @@ import { DAppClient } from "@tezos-x/octez.connect-sdk";
 import { TempleWallet } from "@temple-wallet/dapp";
 
 const TEZOS_NODE = "https://mainnet.api.tez.ie";
-const APP_NAME = "Objkt Chat Extension";
+const APP_NAME = "Whispers";
 const NETWORK_MAINNET = "mainnet" as const;
 
 // Shared Tezos toolkit (used for read-only; wallet provider set per connection)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
+import { useLocation, Link } from "wouter";
 import { ChatInterface } from "@/components/ChatInterface";
-import { MessageSquare, Sparkles } from "lucide-react";
+import { MessageSquare, Sparkles, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -35,10 +35,24 @@ export default function Home() {
     setPageUrl("https://objkt.com/general-chat");
   }, [location]);
 
+  const isExtension = typeof chrome !== "undefined" && !!chrome?.runtime?.id;
+
   if (!pageUrl) return null;
 
   return (
-    <div className="h-screen w-full flex items-center justify-center bg-transparent">
+    <div className={`h-screen w-full flex flex-col items-center justify-center bg-transparent ${!isExtension ? "pt-14" : ""}`}>
+      {/* Install link when viewed on web (Netlify), not in extension popup */}
+      {!isExtension && (
+        <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-3 bg-background/95 border-b border-border backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <Link href="/install">
+            <Button variant="outline" size="sm" className="gap-2">
+              <Download className="w-4 h-4" />
+              Install Whispers
+            </Button>
+          </Link>
+        </div>
+      )}
+
       {/* 
         The main container for the chat app.
         In the extension context, this will be inside an iframe or sidebar.
@@ -53,7 +67,7 @@ export default function Home() {
               <MessageSquare className="w-12 h-12 text-primary" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold font-display mb-2">Objkt Chat</h1>
+              <h1 className="text-2xl font-bold font-display mb-2">Whispers</h1>
               <p className="text-muted-foreground">
                 No active page detected. Please open this extension on an objkt.com page.
               </p>
