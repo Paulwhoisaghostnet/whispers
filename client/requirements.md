@@ -1,6 +1,8 @@
 ## Packages
 @taquito/taquito | Tezos interaction library
-@taquito/beacon-wallet | Tezos wallet connection (Beacon)
+@taquito/beacon-wallet | Tezos wallet connection (Beacon – primary until sunset)
+@temple-wallet/dapp | Tezos wallet connection (Temple – direct, no Beacon dependency)
+@tezos-x/octez.connect-sdk | Tezos wallet connection (Octez Connect – backup when Beacon fails/sunsets)
 framer-motion | Smooth animations for chat bubbles and UI transitions
 lucide-react | Icons for the UI (already in base, but good to note)
 date-fns | Date formatting for chat timestamps
