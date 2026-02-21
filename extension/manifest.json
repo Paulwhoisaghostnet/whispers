@@ -16,5 +16,12 @@
   "action": {
     "default_popup": "index.html",
     "default_title": "Objkt Chat"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://objkt.com/*", "https://*.objkt.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
 }

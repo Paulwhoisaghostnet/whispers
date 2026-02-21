@@ -19,6 +19,10 @@ async function buildExtension() {
   await copyFile(manifestSrc, path.join(extDist, "manifest.json"));
   console.log("Copied extension/manifest.json -> extension/dist/");
 
+  const contentScriptSrc = path.join(root, "extension", "content.js");
+  await copyFile(contentScriptSrc, path.join(extDist, "content.js"));
+  console.log("Copied extension/content.js -> extension/dist/");
+
   // Copy favicon if it exists (optional)
   const faviconSrc = path.join(root, "client", "public", "favicon.png");
   try {

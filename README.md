@@ -8,6 +8,16 @@ Chat for [objkt.com](https://objkt.com) token and collection pages. Anyone can v
 
 **Repo**: [github.com/Paulwhoisaghostnet/whispers](https://github.com/Paulwhoisaghostnet/whispers)
 
+## Installation
+
+On [objkt.com](https://objkt.com) you’ll see an **Install Tezos Chat** button (bottom-right). Click it to open this repo; then:
+
+1. **Option A – Load unpacked (dev)**  
+   Clone the repo, run `npm run build:extension` (see [Quick start](#quick-start)), then in Chrome go to `chrome://extensions`, enable **Developer mode**, and click **Load unpacked** → select the `extension/dist` folder.
+
+2. **Option B – Chrome Web Store**  
+   When the extension is published, the Install button will link to the store for one-click install.
+
 **CI**: To enable GitHub Actions (build on push/PR), add the workflow file from `.github/workflows/ci.yml` in this repo (e.g. via GitHub UI or a push with a token that has `workflow` scope).
 
 ## Quick start
